@@ -9,7 +9,7 @@ namespace IfCompanyTask.Repository.Repository
 {
     public class RiskRepository : GenericRepository<Risk>, IRiskRepository
     {
-        private IfDataContext _ifDBContext;
+        private readonly IfDataContext _ifDBContext;
         public RiskRepository(IfDataContext context) : base(context)
         {
             _ifDBContext = context;

@@ -10,7 +10,7 @@ namespace IfCompanyTask.Repository.Repository
 {
     public class PolicyRepository : GenericRepository<Policy>, IPolicyRepository
     {
-        private IfDataContext _ifDBContext;
+        private readonly IfDataContext _ifDBContext;
         public PolicyRepository(IfDataContext context) : base(context)
         {
             _ifDBContext = context;

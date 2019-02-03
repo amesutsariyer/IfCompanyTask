@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IfCompany.Interface2\IfCompany.Interface.csproj" />
+    <ProjectReference Include="..\IfCompany.Entity2\IfCompany.Entity.csproj" />
   </ItemGroup>
 
 </Project>

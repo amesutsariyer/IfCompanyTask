@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IfCompany.Entity2\IfCompany.Entity.csproj" />
+    <ProjectReference Include="..\IfCompany.Interface2\IfCompany.Interface.csproj" />
+    <ProjectReference Include="..\IfCompanyTask.Common\IfCompanyTask.Common.csproj" />
+  </ItemGroup>
+
+</Project>

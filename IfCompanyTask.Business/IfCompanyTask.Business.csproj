@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IfCompany.Interface2\IfCompany.Interface.csproj" />
+    <ProjectReference Include="..\IfCompanyTask.Common\IfCompanyTask.Common.csproj" />
+    <ProjectReference Include="..\IfCompanyTask.Repo\IfCompanyTask.Repository.csproj" />
   </ItemGroup>
 
 </Project>

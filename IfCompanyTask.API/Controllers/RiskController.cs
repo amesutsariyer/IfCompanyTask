@@ -2,19 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IfCompany.Interface.Business;
+using IfCompanyTask.Entity.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IfCompanyTask.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ValuesController : ControllerBase
+
+    public class RiskController : BaseController
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        private readonly IRiskBusiness _riskBusiness;
+        public RiskController(IRiskBusiness riskBusiness)
         {
-            return new string[] { "value1", "value2" };
+            _riskBusiness = riskBusiness;
+        }
+        // GET all risks
+        [HttpGet]
+        public async Task<IList<Risk>> Get()
+        {
+            return await _riskBusiness.GetRisks();
         }
 
         // GET api/values/5

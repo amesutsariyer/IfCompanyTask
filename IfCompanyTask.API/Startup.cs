@@ -24,20 +24,27 @@ namespace IfCompanyTask.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        readonly IHostingEnvironment HostingEnvironment;
+        public IConfigurationRoot Configuration { get; }
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            HostingEnvironment = env;
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
-
-        public IConfiguration Configuration { get; }
-
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             //Also make top level configuration available (for EF configuration and access to connection string)
-           // services.AddSingleton(Configuration);
+            services.AddSingleton(Configuration);
             //IConfigurationRoot
             services.AddSingleton<IConfiguration>(Configuration);
 
@@ -46,15 +53,15 @@ namespace IfCompanyTask.API
             services.Configure<AppConfig>(Configuration.GetSection("AppConfig"));
 
             //Set database.
-            //if (Configuration["AppConfig:UseInMemoryDatabase"] == "true")
-            //{
-            //    services.AddDbContext<IfDataContext>(opt => opt.UseInMemoryDatabase("IfDbMemory"));
-            //}
-            //else
-            //{
+            if (Configuration["AppConfig:UseInMemoryDatabase"] == "true")
+            {
+                services.AddDbContext<IfDataContext>(opt => opt.UseInMemoryDatabase("IfDbMemory"));
+            }
+            else
+            {
                 services.AddDbContext<IfDataContext>(c =>
                     c.UseSqlServer(Configuration.GetConnectionString("IfCompanyDbConnection")));
-            //}
+            }
 
             //Cors policy is added to controllers via [EnableCors("CorsPolicy")]
             services.AddCors(options =>
@@ -106,16 +113,16 @@ namespace IfCompanyTask.API
             IConfiguration configuration)
         {
             // Serilog config
-            //Log.Logger = new LoggerConfiguration()
-            //        .WriteTo.RollingFile(pathFormat: "logs\\log-{Date}.log")
-            //        .CreateLogger();
+            Log.Logger = new LoggerConfiguration()
+                    .WriteTo.RollingFile(pathFormat: "logs\\log-{Date}.log")
+                    .CreateLogger();
             app.UseDatabaseErrorPage();
             app.UseStatusCodePages();
             //Apply CORS.
             app.UseCors("CorsPolicy");
 
             //put last so header configs like CORS or Cookies etc can fire
-           // app.UseMvcWithDefaultRoute();
+            app.UseMvcWithDefaultRoute();
 
             app.UseDefaultFiles();
             //Serve files inside of web root

@@ -6,6 +6,7 @@ using IfCompany.Interface.Business;
 using IfCompany.Interface.Repository;
 using IfCompanyTask.API.Configuration;
 using IfCompanyTask.Business.BusinessService;
+using IfCompanyTask.Common.Classes;
 using IfCompanyTask.Interface.Repository;
 using IfCompanyTask.Repository.DataContext;
 using IfCompanyTask.Repository.Repository;
@@ -75,14 +76,15 @@ namespace IfCompanyTask.API
             });
 
             //Instance injection
-            //  services.AddScoped(typeof(IAutoMapConverter<,>), typeof(AutoMapConverter<,>));
-
+            services.AddScoped(typeof(IAutoMapConverter<,>), typeof(AutoMapConverter<,>));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IIFRepository<>), typeof(IfRepository<>));
             services.AddScoped<IRiskRepository, RiskRepository>();
             services.AddScoped<IPolicyRepository, PolicyRepository>();
             services.AddScoped<IRiskBusiness, RiskBusiness>();
             services.AddScoped<IPolicyBusiness, PolicyBusiness>();
+            services.AddScoped<IInsuranceCompanyRepository, InsuranceCompanyRepository>();
+            services.AddScoped<IInsuranceCompanyBusiness, InsuranceCompanyBusiness>();
 
             services.AddSwaggerGen(c =>
             {

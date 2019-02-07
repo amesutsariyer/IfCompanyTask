@@ -1,4 +1,5 @@
-﻿using IfCompanyTask.Entity.Repository;
+﻿using IfCompany.Entity.Repository;
+using IfCompanyTask.Entity.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,13 @@ namespace IfCompanyTask.Repository.DataContext
 
         public DbSet<Risk> Risks { get; set; }
         public DbSet<Policy> Policies { get; set; }
-
+        public DbSet<InsuranceCompany> InsuranceCompanies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Risk>().ToTable("Risk");
             builder.Entity<Policy>().ToTable("Policy");
+            builder.Entity<InsuranceCompany>().ToTable("InsuranceCompany");
         }
     }
 }

@@ -4,14 +4,16 @@ using IfCompanyTask.Repository.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IfCompanyTask.Repository.Migrations
 {
     [DbContext(typeof(IfDataContext))]
-    partial class IfDataContextModelSnapshot : ModelSnapshot
+    [Migration("20190207203020_Db-Design-Add-Relational-20")]
+    partial class DbDesignAddRelational20
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

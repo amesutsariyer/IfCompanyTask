@@ -4,37 +4,22 @@ using IfCompanyTask.Repository.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IfCompanyTask.Repository.Migrations
 {
     [DbContext(typeof(IfDataContext))]
-    partial class IfDataContextModelSnapshot : ModelSnapshot
+    [Migration("20190207200527_Db-Design-Add-Relational-9")]
+    partial class DbDesignAddRelational9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("IfCompany.Entity.Repository.InsuranceCompany", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("CreatedDate");
-
-                    b.Property<DateTime?>("ModifiedDate");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InsuranceCompany");
-                });
 
             modelBuilder.Entity("IfCompanyTask.Entity.Repository.Policy", b =>
                 {
@@ -43,8 +28,6 @@ namespace IfCompanyTask.Repository.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("CreatedDate");
-
-                    b.Property<int>("InsuranceCompanyId");
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -58,8 +41,6 @@ namespace IfCompanyTask.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InsuranceCompanyId");
-
                     b.ToTable("Policy");
                 });
 
@@ -71,8 +52,6 @@ namespace IfCompanyTask.Repository.Migrations
 
                     b.Property<DateTime?>("CreatedDate");
 
-                    b.Property<int>("InsuranceCompanyId");
-
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
@@ -83,28 +62,13 @@ namespace IfCompanyTask.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InsuranceCompanyId");
-
                     b.HasIndex("PolicyId");
 
                     b.ToTable("Risk");
                 });
 
-            modelBuilder.Entity("IfCompanyTask.Entity.Repository.Policy", b =>
-                {
-                    b.HasOne("IfCompany.Entity.Repository.InsuranceCompany", "InsuranceCompany")
-                        .WithMany()
-                        .HasForeignKey("InsuranceCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("IfCompanyTask.Entity.Repository.Risk", b =>
                 {
-                    b.HasOne("IfCompany.Entity.Repository.InsuranceCompany", "InsuranceCompany")
-                        .WithMany("AvailableRisks")
-                        .HasForeignKey("InsuranceCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("IfCompanyTask.Entity.Repository.Policy", "Policy")
                         .WithMany("InsuredRisks")
                         .HasForeignKey("PolicyId");

@@ -1,18 +1,22 @@
-﻿using System;
+﻿using IfCompany.Entity;
+using IfCompany.Entity.Repository;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IfCompanyTask.Entity.Repository
 {
-    public class Risk : BaseRepositoryEntity
+    public class Risk : BaseRepositoryEntity, IRisk
     {
-        /// <summary>
-        /// Unique name of the risk
-        /// </summary>
+
         public string Name { get; set; }
-        /// <summary>
-        /// Risk yearly price
-        /// </summary>
         public decimal YearlyPrice { get; set; }
+
+        public int? PolicyId { get; set; }
+        public virtual Policy Policy { get; set; }
+
+        public int InsuranceCompanyId { get; set; }
+        public virtual InsuranceCompany InsuranceCompany { get; set; }
+
     }
 }

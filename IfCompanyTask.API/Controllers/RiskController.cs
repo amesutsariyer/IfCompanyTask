@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IfCompany.Interface.Business;
+using IfCompanyTask.Common.Classes;
+using IfCompanyTask.Entity.Model;
 using IfCompanyTask.Entity.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,36 +18,36 @@ namespace IfCompanyTask.API.Controllers
         {
             _riskBusiness = riskBusiness;
         }
-        // GET all risks
         [HttpGet]
         public async Task<IList<Risk>> Get()
         {
             return await _riskBusiness.GetRisks();
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<Risk> Get(int id)
         {
-            return "value";
+          return await _riskBusiness.GetRiskById(id);
         }
 
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<int> Post([FromBody] RiskModel model)
         {
+            var entity = new Risk() { YearlyPrice = model.YearlyPrice, InsuranceCompanyId = model.InsuranceCompanyId, PolicyId = model.PolicyId, Name = model.Name };
+           return await _riskBusiness.AddRisk(entity);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public async Task Put([FromBody] RiskModel model)
         {
+            var entity = new Risk() {Id=model.Id, YearlyPrice = model.YearlyPrice, InsuranceCompanyId = model.InsuranceCompanyId, PolicyId = model.PolicyId, Name = model.Name };
+           await _riskBusiness.UpdateRisk(entity);
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async void Delete(int id)
         {
+           await _riskBusiness.DeleteRisk(id);
         }
     }
 }

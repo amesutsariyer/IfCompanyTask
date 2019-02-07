@@ -4,14 +4,16 @@ using IfCompanyTask.Repository.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IfCompanyTask.Repository.Migrations
 {
     [DbContext(typeof(IfDataContext))]
-    partial class IfDataContextModelSnapshot : ModelSnapshot
+    [Migration("20190207200939_Db-Design-Add-Relational-10")]
+    partial class DbDesignAddRelational10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,8 +46,6 @@ namespace IfCompanyTask.Repository.Migrations
 
                     b.Property<DateTime?>("CreatedDate");
 
-                    b.Property<int>("InsuranceCompanyId");
-
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("NameOfInsuredObject");
@@ -58,8 +58,6 @@ namespace IfCompanyTask.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InsuranceCompanyId");
-
                     b.ToTable("Policy");
                 });
 
@@ -71,7 +69,7 @@ namespace IfCompanyTask.Repository.Migrations
 
                     b.Property<DateTime?>("CreatedDate");
 
-                    b.Property<int>("InsuranceCompanyId");
+                    b.Property<int?>("InsuranceCompanyId");
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -90,20 +88,11 @@ namespace IfCompanyTask.Repository.Migrations
                     b.ToTable("Risk");
                 });
 
-            modelBuilder.Entity("IfCompanyTask.Entity.Repository.Policy", b =>
-                {
-                    b.HasOne("IfCompany.Entity.Repository.InsuranceCompany", "InsuranceCompany")
-                        .WithMany()
-                        .HasForeignKey("InsuranceCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("IfCompanyTask.Entity.Repository.Risk", b =>
                 {
-                    b.HasOne("IfCompany.Entity.Repository.InsuranceCompany", "InsuranceCompany")
+                    b.HasOne("IfCompany.Entity.Repository.InsuranceCompany")
                         .WithMany("AvailableRisks")
-                        .HasForeignKey("InsuranceCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("InsuranceCompanyId");
 
                     b.HasOne("IfCompanyTask.Entity.Repository.Policy", "Policy")
                         .WithMany("InsuredRisks")

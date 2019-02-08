@@ -52,7 +52,7 @@ namespace IfCompanyTask.Repository.Repository
         public async Task DeleteRisk(int id)
         {
             await this.DeleteAsync(id, true);
-            //this.Commit();
+           // this.Commit();
         }
     }
 }

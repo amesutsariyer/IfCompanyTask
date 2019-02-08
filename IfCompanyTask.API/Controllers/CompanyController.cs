@@ -49,7 +49,7 @@ namespace IfCompanyTask.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             await _compBusiness.DeleteInsuranceCompany(id);
         }

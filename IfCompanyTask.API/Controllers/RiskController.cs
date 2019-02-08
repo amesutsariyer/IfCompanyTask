@@ -27,27 +27,31 @@ namespace IfCompanyTask.API.Controllers
         [HttpGet("{id}")]
         public async Task<Risk> Get(int id)
         {
-          return await _riskBusiness.GetRiskById(id);
+            return await _riskBusiness.GetRiskById(id);
         }
 
         [HttpPost]
         public async Task<int> Post([FromBody] RiskModel model)
         {
+
             var entity = new Risk() { YearlyPrice = model.YearlyPrice, InsuranceCompanyId = model.InsuranceCompanyId, PolicyId = model.PolicyId, Name = model.Name };
-           return await _riskBusiness.AddRisk(entity);
+            if (entity.PolicyId == 0)
+                entity.PolicyId = null;
+
+            return await _riskBusiness.AddRisk(entity);
         }
 
         [HttpPut]
         public async Task Put([FromBody] RiskModel model)
         {
-            var entity = new Risk() {Id=model.Id, YearlyPrice = model.YearlyPrice, InsuranceCompanyId = model.InsuranceCompanyId, PolicyId = model.PolicyId, Name = model.Name };
-           await _riskBusiness.UpdateRisk(entity);
+            var entity = new Risk() { Id = model.Id, YearlyPrice = model.YearlyPrice, InsuranceCompanyId = model.InsuranceCompanyId, PolicyId = model.PolicyId, Name = model.Name };
+            await _riskBusiness.UpdateRisk(entity);
         }
 
         [HttpDelete("{id}")]
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
-           await _riskBusiness.DeleteRisk(id);
+            await _riskBusiness.DeleteRisk(id);
         }
     }
 }

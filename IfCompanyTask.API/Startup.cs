@@ -74,7 +74,8 @@ namespace IfCompanyTask.API
                         .AllowAnyHeader()
                         .AllowCredentials());
             });
-
+            services.AddTransient<DbContext, IfDataContext>();
+            services.AddScoped<DbContext, IfDataContext>();
             //Instance injection
             services.AddScoped(typeof(IAutoMapConverter<,>), typeof(AutoMapConverter<,>));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

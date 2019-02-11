@@ -26,7 +26,7 @@ namespace IfCompanyTask.Business.BusinessService
             return await this._riskRepository.GetRiskById(id);
         }
 
-        public async Task<int> AddRisk(Risk inputEt)
+        public async Task<Risk> AddRisk(Risk inputEt)
         {
             return await this._riskRepository.AddRisk(inputEt);
         }

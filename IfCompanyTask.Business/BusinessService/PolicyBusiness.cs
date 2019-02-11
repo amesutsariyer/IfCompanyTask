@@ -25,7 +25,7 @@ namespace IfCompanyTask.Business.BusinessService
             return await this._policyRepository.GetPolicyById(id);
         }
 
-        public async Task<int> AddPolicy(Policy inputEt)
+        public async Task<Policy> AddPolicy(Policy inputEt)
         {
             return await this._policyRepository.AddPolicy(inputEt);
         }
@@ -40,5 +40,9 @@ namespace IfCompanyTask.Business.BusinessService
             await this._policyRepository.DeletePolicy(id);
         }
 
+        public async Task<Policy> GetPolicyByName(string name)
+        {
+            return await _policyRepository.GetPolicyByName(name);
+        }
     }
 }

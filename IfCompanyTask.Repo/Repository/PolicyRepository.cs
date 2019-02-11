@@ -27,34 +27,31 @@ namespace IfCompanyTask.Repository.Repository
             return await this.GetByIdAsync(id);
         }
 
-        public async Task<int> AddPolicy(Policy inputEt)
+        public async Task<Policy> AddPolicy(Policy inputEt)
         {
-            inputEt.Id = 0;
-            inputEt.CreatedDate= DateTime.Now;
             await this.InsertAsync(inputEt, true);
-            //this.Commit();
-            return inputEt.Id;
+            return inputEt;
         }
 
         public async Task UpdatePolicy(Policy inputEt)
         {
-            //Get entity to be updated
-            //Policy updEt = GetPolicyById(inputEt.PolicyId).Result;
-
-            //if (!string.IsNullOrEmpty(inputEt.PolicyName)) updEt.PolicyName = inputEt.PolicyName;
-            //if (!string.IsNullOrEmpty(inputEt.Phone)) updEt.Phone = inputEt.Phone;
-            //if (!string.IsNullOrEmpty(inputEt.Email)) updEt.Email = inputEt.Email;
-            //if (inputEt.PrimaryType != 0) updEt.PrimaryType = inputEt.PrimaryType;
-            //updEt.AuditTime = DateTime.Now;
-
             await this.UpdateAsync(inputEt, true);
-            //this.Commit();
         }
 
         public async Task DeletePolicy(int id)
         {
             await this.DeleteAsync(id, true);
-            //this.Commit();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="effectiveDate"></param>
+        /// <returns></returns>
+        public async Task<Policy> GetPolicyByName(string name)
+        {
+                return await this.FindAsync(x => x.NameOfInsuredObject.Trim().ToLower() == name.Trim().ToLower());
         }
     }
 }

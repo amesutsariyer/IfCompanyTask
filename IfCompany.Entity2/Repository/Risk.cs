@@ -12,11 +12,10 @@ namespace IfCompanyTask.Entity.Repository
         public string Name { get; set; }
         public decimal YearlyPrice { get; set; }
 
-        public int? PolicyId { get; set; }
-        public virtual Policy Policy { get; set; }
 
-        public int InsuranceCompanyId { get; set; }
-        public virtual InsuranceCompany InsuranceCompany { get; set; }
+
+        //public int InsuranceCompanyId { get; set; }
+        //public virtual InsuranceCompany InsuranceCompany { get; set; }
 
     }
 }

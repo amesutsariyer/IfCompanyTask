@@ -10,8 +10,8 @@ namespace IfCompanyTask.Interface.Repository
     {
         Task<IList<Policy>> GetPolicies();
         Task<Policy> GetPolicyById(int id);
-
-        Task<int> AddPolicy(Policy inputEt);
+        Task<Policy> GetPolicyByName(string name);
+        Task<Policy> AddPolicy(Policy inputEt);
         Task UpdatePolicy(Policy inputEt);
         Task DeletePolicy(int id);
     }

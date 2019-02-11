@@ -16,9 +16,6 @@ namespace IfCompanyTask.Entity.Model
         /// Risk yearly price
         /// </summary>
         public decimal YearlyPrice { get; set; }
-
-        public int? PolicyId { get; set; }
-        public int InsuranceCompanyId { get; set; }
         public int Id { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }

@@ -11,7 +11,6 @@ namespace IfCompanyTask.Entity.Model
         public DateTime ValidFrom { get; set; }
         public DateTime ValidTill { get; set; }
         public decimal Premium { get; set; }
-        public int InsuranceCompanyId { get; set; }
        
     }
 }

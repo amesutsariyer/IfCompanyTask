@@ -31,12 +31,11 @@ namespace IfCompanyTask.API.Controllers
         }
 
         [HttpPost]
-        public async Task<int> Post([FromBody] RiskModel model)
+        public async Task<Risk> Post([FromBody] RiskModel model)
         {
 
-            var entity = new Risk() { YearlyPrice = model.YearlyPrice, InsuranceCompanyId = model.InsuranceCompanyId, PolicyId = model.PolicyId, Name = model.Name };
-            if (entity.PolicyId == 0)
-                entity.PolicyId = null;
+            var entity = new Risk() { YearlyPrice = model.YearlyPrice,  Name = model.Name };
+           
 
             return await _riskBusiness.AddRisk(entity);
         }
@@ -44,7 +43,7 @@ namespace IfCompanyTask.API.Controllers
         [HttpPut]
         public async Task Put([FromBody] RiskModel model)
         {
-            var entity = new Risk() { Id = model.Id, YearlyPrice = model.YearlyPrice, InsuranceCompanyId = model.InsuranceCompanyId, PolicyId = model.PolicyId, Name = model.Name };
+            var entity = new Risk() { Id = model.Id, YearlyPrice = model.YearlyPrice,Name = model.Name,CreatedDate=model.CreatedDate };
             await _riskBusiness.UpdateRisk(entity);
         }
 

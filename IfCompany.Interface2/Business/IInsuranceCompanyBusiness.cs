@@ -14,43 +14,10 @@ namespace IfCompany.Interface.Business
         Task<IList<InsuranceCompany>> GetInsuranceCompanies();
         Task<InsuranceCompany> GetInsuranceCompanyById(int id);
 
-        Task<int> AddInsuranceCompanyAsync(InsuranceCompany inputEt);
+        Task<InsuranceCompany> AddInsuranceCompanyAsync(InsuranceCompany inputEt);
         Task UpdateInsuranceCompany(InsuranceCompany inputEt);
         Task DeleteInsuranceCompany(int id);
 
-
-        /// <summary>
-        /// Sell the policy.
-        /// </summary>
-        /// <param name="nameOfInsuredObject">Name of the insured object. Must be unique in the given period.</param>
-        /// <param name="validFrom">Date and time when policy starts. Can not be in the past</param>
-        /// <param name="validMonths">Policy period in months</param>
-        /// <param name="selectedRisks">List of risks that must be included in the policy</param>
-        /// <returns>Information about policy</returns>
-        IPolicy SellPolicy(string nameOfInsuredObject, DateTime validFrom, short validMonths, IList<Risk> selectedRisks);
-        /// <summary>
-        /// Add risk to the policy of insured object.
-        /// </summary>
-        /// <param name="nameOfInsuredObject">Name of insured object</param>
-        /// <param name="risk">Risk that must be added</param>
-        /// <param name="validFrom">Date when risk becomes active. Can not be in the past</param>
-        /// <param name="effectiveDate">Point of date and time, when the policy effective</param>
-        void AddRisk(string nameOfInsuredObject, Risk risk, DateTime validFrom, DateTime effectiveDate);
-        /// <summary>
-        /// Remove risk from the policy of insured object.
-        /// </summary>
-        /// <param name="nameOfInsuredObject">Name of insured object</param>
-        /// <param name="risk">Risk that must be removed</param>
-        /// <param name="validTill">Date when risk become inactive. Must be equal to or greater than date when risk become active</param>
-        /// <param name="effectiveDate">Point of date and time, when the policy effective</param>
-        void RemoveRisk(string nameOfInsuredObject, Risk risk, DateTime validTill, DateTime effectiveDate);
-        /// <summary>
-        /// Gets policy with a risks at the given point of time.
-        /// </summary>
-        /// <param name="nameOfInsuredObject">Name of insured object</param>
-        /// <param name="effectiveDate">Point of date and time, when the policy effective</param>
-        /// <returns></returns>
-        IPolicy GetPolicy(string nameOfInsuredObject, DateTime effectiveDate);
-
+     
     }
 }

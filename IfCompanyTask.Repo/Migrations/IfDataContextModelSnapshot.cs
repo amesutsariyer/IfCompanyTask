@@ -36,7 +36,7 @@ namespace IfCompanyTask.Repository.Migrations
                     b.ToTable("InsuranceCompany");
                 });
 
-            modelBuilder.Entity("IfCompanyTask.Entity.Repository.Policy", b =>
+            modelBuilder.Entity("IfCompany.Entity.Repository.LogResourceAPI", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,88 @@ namespace IfCompanyTask.Repository.Migrations
 
                     b.Property<DateTime?>("CreatedDate");
 
-                    b.Property<int>("InsuranceCompanyId");
+                    b.Property<string>("Exception");
+
+                    b.Property<string>("Level");
+
+                    b.Property<string>("Message");
+
+                    b.Property<string>("MessageTemplate");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<string>("Properties");
+
+                    b.Property<DateTime>("TimeStamp");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Log");
+                });
+
+            modelBuilder.Entity("IfCompany.Entity.Repository.PolicyAudit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<int>("PolicyId");
+
+                    b.Property<decimal>("Premium");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.Property<short>("ValidMonths");
+
+                    b.Property<DateTime>("ValidTill");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PolicyId");
+
+                    b.ToTable("PolicyAudit");
+                });
+
+            modelBuilder.Entity("IfCompany.Entity.Repository.RiskPolicyAudit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<int>("PolicyAuditId");
+
+                    b.Property<int>("RiskId");
+
+                    b.Property<DateTime>("ValidFrom");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PolicyAuditId");
+
+                    b.HasIndex("RiskId");
+
+                    b.ToTable("RiskPolicyAudit");
+                });
+
+            modelBuilder.Entity("IfCompanyTask.Entity.Repository.Policy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreatedDate");
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -58,8 +139,6 @@ namespace IfCompanyTask.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InsuranceCompanyId");
-
                     b.ToTable("Policy");
                 });
 
@@ -71,43 +150,36 @@ namespace IfCompanyTask.Repository.Migrations
 
                     b.Property<DateTime?>("CreatedDate");
 
-                    b.Property<int>("InsuranceCompanyId");
-
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
-
-                    b.Property<int?>("PolicyId");
 
                     b.Property<decimal>("YearlyPrice");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InsuranceCompanyId");
-
-                    b.HasIndex("PolicyId");
-
                     b.ToTable("Risk");
                 });
 
-            modelBuilder.Entity("IfCompanyTask.Entity.Repository.Policy", b =>
+            modelBuilder.Entity("IfCompany.Entity.Repository.PolicyAudit", b =>
                 {
-                    b.HasOne("IfCompany.Entity.Repository.InsuranceCompany", "InsuranceCompany")
+                    b.HasOne("IfCompanyTask.Entity.Repository.Policy", "Policy")
                         .WithMany()
-                        .HasForeignKey("InsuranceCompanyId")
+                        .HasForeignKey("PolicyId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("IfCompanyTask.Entity.Repository.Risk", b =>
+            modelBuilder.Entity("IfCompany.Entity.Repository.RiskPolicyAudit", b =>
                 {
-                    b.HasOne("IfCompany.Entity.Repository.InsuranceCompany", "InsuranceCompany")
-                        .WithMany("AvailableRisks")
-                        .HasForeignKey("InsuranceCompanyId")
+                    b.HasOne("IfCompany.Entity.Repository.PolicyAudit", "Policy")
+                        .WithMany()
+                        .HasForeignKey("PolicyAuditId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("IfCompanyTask.Entity.Repository.Policy", "Policy")
-                        .WithMany("InsuredRisks")
-                        .HasForeignKey("PolicyId");
+                    b.HasOne("IfCompanyTask.Entity.Repository.Risk", "Risk")
+                        .WithMany()
+                        .HasForeignKey("RiskId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

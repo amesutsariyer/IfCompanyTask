@@ -11,7 +11,7 @@ namespace IfCompany.Interface.Business
         Task<IList<Risk>> GetRisks();
         Task<Risk> GetRiskById(int id);
 
-        Task<int> AddRisk(Risk inputEt);
+        Task<Risk> AddRisk(Risk inputEt);
         Task UpdateRisk(Risk inputEt);
         Task DeleteRisk(int id);
     }

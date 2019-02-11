@@ -11,7 +11,7 @@ namespace IfCompany.Interface.Repository
     {
         Task<IList<InsuranceCompany>> GetInsuranceCompanies();
         Task<InsuranceCompany> GetInsuranceCompanyById(int id);
-        Task<int> AddInsuranceCompany(InsuranceCompany inputEt);
+        Task<InsuranceCompany> AddInsuranceCompany(InsuranceCompany inputEt);
         Task UpdateInsuranceCompany(InsuranceCompany inputEt);
         Task DeleteInsuranceCompany(int id);
     }

@@ -9,7 +9,7 @@ namespace IfCompany.Entity.Repository
     public class InsuranceCompany : BaseRepositoryEntity, IInsuranceCompany
     {
         public string Name { get; set; }
-
+        [NotMapped]
         public virtual ICollection<Risk> AvailableRisks { get; set; }
    
      

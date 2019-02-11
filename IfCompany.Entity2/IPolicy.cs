@@ -27,7 +27,7 @@ namespace IfCompany.Entity
         /// <summary>
         /// Initially included risks of risks at specific moment of time.
         /// </summary>
-        ICollection<Risk> InsuredRisks { get; set; }
+        IList<Risk> InsuredRisks { get; set; }
 
     }
 }

@@ -10,8 +10,9 @@ namespace IfCompany.Interface.Business
     {
         Task<IList<Policy>> GetPolicies();
         Task<Policy> GetPolicyById(int id);
+        Task<Policy> GetPolicyByName(string name);
 
-        Task<int> AddPolicy(Policy inputEt);
+        Task<Policy> AddPolicy(Policy inputEt);
         Task UpdatePolicy(Policy inputEt);
         Task DeletePolicy(int id);
     }

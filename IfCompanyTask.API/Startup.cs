@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using IfCompany.Interface.Business;
 using IfCompany.Interface.Repository;
 using IfCompanyTask.API.Configuration;
+using IfCompanyTask.API.Middlewares;
 using IfCompanyTask.Business.BusinessService;
 using IfCompanyTask.Common.Classes;
 using IfCompanyTask.Interface.Repository;
@@ -52,7 +54,7 @@ namespace IfCompanyTask.API
             //Add Support for strongly typed Configuration and map to class
             services.AddOptions();
             services.Configure<AppConfig>(Configuration.GetSection("AppConfig"));
-
+            //Logging
             //Set database.
             if (Configuration["AppConfig:UseInMemoryDatabase"] == "true")
             {
@@ -87,6 +89,18 @@ namespace IfCompanyTask.API
             services.AddScoped<IInsuranceCompanyRepository, InsuranceCompanyRepository>();
             services.AddScoped<IInsuranceCompanyBusiness, InsuranceCompanyBusiness>();
 
+            services.AddScoped<IRiskPolicyAuditBusiness, RiskPolicyAuditBusiness>();
+            services.AddScoped<IRiskPolicyAuditRepository, PolicyRiskAuditRepository>();
+
+            services.AddScoped<IInsuranceCompanyRepository, InsuranceCompanyRepository>();
+            services.AddScoped<IInsuranceCompanyRepository, InsuranceCompanyRepository>();
+            services.AddScoped<IInsuranceCompanyRepository, InsuranceCompanyRepository>();
+
+
+            services.AddScoped<IPolicyAuditRepository, PolicyAuditRepository>();
+            
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -115,19 +129,16 @@ namespace IfCompanyTask.API
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
             IConfiguration configuration)
         {
-            // Serilog config
-            Log.Logger = new LoggerConfiguration()
-                    .WriteTo.RollingFile(pathFormat: "logs\\log-{Date}.log")
-                    .CreateLogger();
-            app.UseDatabaseErrorPage();
-            app.UseStatusCodePages();
+
+            //app.UseDatabaseErrorPage();
+           // app.UseStatusCodePages();
             //Apply CORS.
             app.UseCors("CorsPolicy");
 
             //put last so header configs like CORS or Cookies etc can fire
-            app.UseMvcWithDefaultRoute();
+           //app.UseMvcWithDefaultRoute();
 
-            app.UseDefaultFiles();
+           //app.UseDefaultFiles();
             //Serve files inside of web root
             app.UseStaticFiles();
             // Enable middleware to serve generated Swagger as a JSON endpoint.
@@ -139,12 +150,18 @@ namespace IfCompanyTask.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "If Company");
             });
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler();
+            }
 
+            app.UseGlobalExceptionMiddleware();
+            app.UseResponseMetadataMiddleware();
             app.UseMvc();
         }
     }

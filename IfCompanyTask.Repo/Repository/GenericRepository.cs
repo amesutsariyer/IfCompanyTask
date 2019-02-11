@@ -168,6 +168,8 @@ namespace IfCompanyTask.Repository.Repository
 
         public virtual async Task<object> InsertAsync(TEntity entity, bool saveChanges = false)
         {
+            entity.GetType().GetProperty("CreatedDate").SetValue(entity, DateTime.Now);
+            entity.GetType().GetProperty("Id").SetValue(entity, 0);
             var rtn = await this.DbSet.AddAsync(entity);
             if (saveChanges)
             {
@@ -197,6 +199,7 @@ namespace IfCompanyTask.Repository.Repository
 
         public virtual async Task UpdateAsync(TEntity entity, bool saveChanges = false)
         {
+            entity.GetType().GetProperty("ModifiedDate").SetValue(entity, DateTime.Now);
             var entry = Context.Entry(entity);
             this.DbSet.Attach(entity);
             entry.State = EntityState.Modified;

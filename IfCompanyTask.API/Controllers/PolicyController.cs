@@ -34,7 +34,7 @@ namespace IfCompanyTask.API.Controllers
         }
 
         [HttpPost]
-        public async Task<int> Post([FromBody] PolicyModel model)
+        public async Task<Policy> Post([FromBody] PolicyModel model)
         {
             var entity = _mapModelToEntity.ConvertObject(model);
             return await _policyBusiness.AddPolicy(entity);

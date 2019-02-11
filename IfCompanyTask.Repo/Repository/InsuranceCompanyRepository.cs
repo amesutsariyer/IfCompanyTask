@@ -29,34 +29,20 @@ namespace IfCompanyTask.Repository.Repository
             return await this.GetByIdAsync(id);
         }
 
-        public async Task<int> AddInsuranceCompany(InsuranceCompany inputEt)
+        public async Task<InsuranceCompany> AddInsuranceCompany(InsuranceCompany inputEt)
         {
-            inputEt.Id = 0;
-            inputEt.CreatedDate = DateTime.Now;
             await this.InsertAsync(inputEt, true);
-            //this.Commit();
-            return inputEt.Id;
+            return inputEt;
         }
 
         public async Task UpdateInsuranceCompany(InsuranceCompany inputEt)
         {
-            //Get entity to be updated
-            //Policy updEt = GetPolicyById(inputEt.PolicyId).Result;
-
-            //if (!string.IsNullOrEmpty(inputEt.PolicyName)) updEt.PolicyName = inputEt.PolicyName;
-            //if (!string.IsNullOrEmpty(inputEt.Phone)) updEt.Phone = inputEt.Phone;
-            //if (!string.IsNullOrEmpty(inputEt.Email)) updEt.Email = inputEt.Email;
-            //if (inputEt.PrimaryType != 0) updEt.PrimaryType = inputEt.PrimaryType;
-            //updEt.AuditTime = DateTime.Now;
-
             await this.UpdateAsync(inputEt, true);
-            //this.Commit();
         }
 
         public async Task DeleteInsuranceCompany(int id)
         {
             await this.DeleteAsync(id, true);
-            //this.Commit();
         }
     }
 }
